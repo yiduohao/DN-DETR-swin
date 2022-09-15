@@ -37,15 +37,8 @@ We build upon DAB-DETR and add a denoising part to accelerate training convergen
 We conduct extensive experiments to validate the effectiveness of our denoising training, for example, the convergnece curve comparison. You can refer to [our paper](https://arxiv.org/pdf/2203.01305.pdf) for more experimental results.
 ![DN-DETR](.github/convergence.png)
 ## Model Zoo
-We provide our models under **DAB-DETR**, **DAB-Deformable-DETR(deformable encoder only)**, and **DAB-Deformable-DETR** (See DAB-DETR [code](https://github.com/IDEA-opensource/DAB-DETR) and [paper](https://arxiv.org/abs/2201.12329) for more details). 
 
-You can also refer to our 
-
-[[model zoo in google drive]](https://drive.google.com/drive/folders/1wmiZKfOg_DIGIwyQedV4rzNqUwHVTkUv?usp=sharing) 
-
-[[model zoo in 百度网盘]](https://pan.baidu.com/s/13Dc_DgliVps4bHVlNujA4Q?pwd=niet)（提取码niet）.
-
-
+Here we provide a support for swin and swinv2 backbones, outperforming the original R50 backbone models.
 ### Swin Transformer 50 epoch setting (weight decay = 0.05)
 <table>
   <thead>
@@ -103,6 +96,15 @@ You can also refer to our
     </tr>
   </tbody>
 </table>
+
+
+We provide our models under **DAB-DETR**, **DAB-Deformable-DETR(deformable encoder only)**, and **DAB-Deformable-DETR** (See DAB-DETR [code](https://github.com/IDEA-opensource/DAB-DETR) and [paper](https://arxiv.org/abs/2201.12329) for more details). 
+
+You can also refer to our 
+
+[[model zoo in google drive]](https://drive.google.com/drive/folders/1wmiZKfOg_DIGIwyQedV4rzNqUwHVTkUv?usp=sharing) 
+
+[[model zoo in 百度网盘]](https://pan.baidu.com/s/13Dc_DgliVps4bHVlNujA4Q?pwd=niet)（提取码niet）.
 
 
 ### 50 epoch setting
