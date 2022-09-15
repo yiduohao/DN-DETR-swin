@@ -63,14 +63,14 @@ You can also refer to our
       <td>Swin-Tiny</td>
       <td>52.7</td>
       <td>3.2</td>
-      <td><a href="https://drive.google.com/drive/folders/1jr8BdDdMu8esABXdU3lNY7fpWVxAJtWa?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1lWrLUkxNfrncRTM-zmpbeA?pwd=niet">BaiDu</a>&nbsp;</td>
+      <td>Coming Soon</td>
     </tr>
     <tr>
       <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd05.sh">DN-DAB-Deformbale-DETR</a></td>
       <td>Swin-Tiny-v2</td>
       <td>53.5</td>
       <td>4.0</td>
-      <td><a href="https://drive.google.com/drive/folders/1pIllR0VfSIqX8TmQy0PFNiPdp87j-78j?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1ugoXlpr3x72qcXPKQ669sA?pwd=niet">BaiDu</a>&nbsp</td>
+      <td>Coming Soon</td>
     </tr>
   </tbody>
 </table>
@@ -92,14 +92,14 @@ You can also refer to our
       <td>Swin-Tiny</td>
       <td>52.5</td>
       <td>3.0</td>
-      <td><a href="https://drive.google.com/drive/folders/1kuwScU8PhN61qQOl5bbiPhKAYbzDHsWs?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1TqvnjsbAjARZp1i8cB2w8A?pwd=niet">BaiDu</a>&nbsp</td>
+      <td>Coming Soon</td>
     </tr>
     <tr>
       <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd0001.sh">DN-DAB-Deformbale-DETR</a></td>
       <td>Swin-Tiny-v2</td>
       <td>53.1</td>
       <td>3.6</td>
-      <td><a href="https://drive.google.com/drive/folders/1TLIuvMw6F9lBv77gWQ3Qcn5tdfG7kqdU?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1emOumSadTJbCcoqxhKnllQ?pwd=niet">BaiDu</a>&nbsp</td>
+      <td>Coming Soon</td>
     </tr>
   </tbody>
 </table>
