@@ -6,6 +6,71 @@ By [Feng Li*](https://fengli-ust.github.io/), [Hao Zhang*](https://scholar.googl
 This repository is an official implementation of the [DN-DETR](https://arxiv.org/pdf/2203.01305.pdf). Accepted to **CVPR 2022** (score **112**, **Oral** presentation). Code is avaliable now.
 [[paper link](https://arxiv.org/pdf/2203.01305.pdf)] [[中文解读](https://www.zhihu.com/question/517340666/answer/2381304399)]
 
+
+# Support for Swin Transformers
+
+Here we provide a support for swin and swinv2 backbones, outperforming the original R50 backbone models.
+
+## Swin Transformer 50 epoch setting (weight decay = 0.05)
+<table>
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>backbone</th>
+      <th>box AP</th>
+      <th>increase</th>
+      <th>Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="configs/dn_dab_swintiny_wd05.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny</td>
+      <td>52.7</td>
+      <td>3.2</td>
+      <td>Coming Soon</td>
+    </tr>
+    <tr>
+      <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd05.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny-v2</td>
+      <td>53.5</td>
+      <td>4.0</td>
+      <td>Coming Soon</td>
+    </tr>
+  </tbody>
+</table>
+
+## Swin Transformer 50 epoch setting (weight decay = 0.0001)
+<table>
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>backbone</th>
+      <th>box AP</th>
+      <th>increase</th>
+      <th>Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="configs/dn_dab_swintiny_wd0001.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny</td>
+      <td>52.5</td>
+      <td>3.0</td>
+      <td>Coming Soon</td>
+    </tr>
+    <tr>
+      <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd0001.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny-v2</td>
+      <td>53.1</td>
+      <td>3.6</td>
+      <td>Coming Soon</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 ## News
 [2022/7] Code for [DINO](https://arxiv.org/pdf/2203.03605.pdf) is available [here](https://github.com/IDEACVR/DINO)!
 
@@ -37,66 +102,6 @@ We build upon DAB-DETR and add a denoising part to accelerate training convergen
 We conduct extensive experiments to validate the effectiveness of our denoising training, for example, the convergnece curve comparison. You can refer to [our paper](https://arxiv.org/pdf/2203.01305.pdf) for more experimental results.
 ![DN-DETR](.github/convergence.png)
 ## Model Zoo
-
-Here we provide a support for swin and swinv2 backbones, outperforming the original R50 backbone models.
-### Swin Transformer 50 epoch setting (weight decay = 0.05)
-<table>
-  <thead>
-    <tr style="text-align: right;">
-      <th>name</th>
-      <th>backbone</th>
-      <th>box AP</th>
-      <th>increase</th>
-      <th>Model</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="configs/dn_dab_swintiny_wd05.sh">DN-DAB-Deformbale-DETR</a></td>
-      <td>Swin-Tiny</td>
-      <td>52.7</td>
-      <td>3.2</td>
-      <td>Coming Soon</td>
-    </tr>
-    <tr>
-      <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd05.sh">DN-DAB-Deformbale-DETR</a></td>
-      <td>Swin-Tiny-v2</td>
-      <td>53.5</td>
-      <td>4.0</td>
-      <td>Coming Soon</td>
-    </tr>
-  </tbody>
-</table>
-
-### Swin Transformer 50 epoch setting (weight decay = 0.0001)
-<table>
-  <thead>
-    <tr style="text-align: right;">
-      <th>name</th>
-      <th>backbone</th>
-      <th>box AP</th>
-      <th>increase</th>
-      <th>Model</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="configs/dn_dab_swintiny_wd0001.sh">DN-DAB-Deformbale-DETR</a></td>
-      <td>Swin-Tiny</td>
-      <td>52.5</td>
-      <td>3.0</td>
-      <td>Coming Soon</td>
-    </tr>
-    <tr>
-      <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd0001.sh">DN-DAB-Deformbale-DETR</a></td>
-      <td>Swin-Tiny-v2</td>
-      <td>53.1</td>
-      <td>3.6</td>
-      <td>Coming Soon</td>
-    </tr>
-  </tbody>
-</table>
-
 
 We provide our models under **DAB-DETR**, **DAB-Deformable-DETR(deformable encoder only)**, and **DAB-Deformable-DETR** (See DAB-DETR [code](https://github.com/IDEA-opensource/DAB-DETR) and [paper](https://arxiv.org/abs/2201.12329) for more details). 
 
