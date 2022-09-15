@@ -23,6 +23,7 @@ import torch
 import torch.nn.functional as F
 from torch import nn, Tensor
 from torch.nn.init import xavier_uniform_, constant_, uniform_, normal_
+import torch.utils.checkpoint as checkpoint
 
 from util.misc import inverse_sigmoid
 from .ops.modules import MSDeformAttn
@@ -279,7 +280,7 @@ class DeformableTransformerEncoder(nn.Module):
         # import ipdb; ipdb.set_trace()
         reference_points = self.get_reference_points(spatial_shapes, valid_ratios, device=src.device)
         for _, layer in enumerate(self.layers):
-            output = layer(output, pos, reference_points, spatial_shapes, level_start_index, padding_mask)
+            output = checkpoint.checkpoint(layer, output, pos, reference_points, spatial_shapes, level_start_index, padding_mask)
 
         return output
 
@@ -395,8 +396,8 @@ class DeformableTransformerDecoder(nn.Module):
                 query_pos = query_pos + self.high_dim_query_proj(output)                 
 
 
-            output = layer(output, query_pos, reference_points_input, src, src_spatial_shapes, src_level_start_index,
-                           src_padding_mask, self_attn_mask=attn_mask)
+            output = checkpoint.checkpoint(layer, output, query_pos, reference_points_input, src, src_spatial_shapes, src_level_start_index,
+                           src_padding_mask, attn_mask)
 
             # hack implementation for iterative bounding box refinement
             if self.bbox_embed is not None:

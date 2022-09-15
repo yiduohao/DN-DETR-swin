@@ -26,6 +26,8 @@ from typing import Dict, List
 from util.misc import NestedTensor, is_main_process
 
 from .position_encoding import build_position_encoding
+from .swin_transformer import SwinTransformer
+from .swin_transformer_v2 import SwinTransformerV2
 
 
 class FrozenBatchNorm2d(torch.nn.Module):
@@ -113,6 +115,142 @@ class Backbone(BackboneBase):
             self.strides[-1] = self.strides[-1] // 2
 
 
+class TransformerBackbone(nn.Module):
+    def __init__(
+        self, backbone: str, train_backbone: bool, return_interm_layers: bool, args
+    ):
+        super().__init__()
+        out_indices = (1, 2, 3)
+        if backbone == "swin_tiny":
+            backbone = SwinTransformer(
+                embed_dim=96,
+                depths=[2, 2, 6, 2],
+                num_heads=[3, 6, 12, 24],
+                window_size=7,
+                ape=False,
+                drop_path_rate=0.2,
+                patch_norm=True,
+                use_checkpoint=True,
+                out_indices=out_indices,
+            )
+            embed_dim = 96
+            backbone.init_weights(args.pretrained_backbone_path)
+        elif backbone == "swin_small":
+            backbone = SwinTransformer(
+                embed_dim=96,
+                depths=[2, 2, 18, 2],
+                num_heads=[3, 6, 12, 24],
+                window_size=7,
+                ape=False,
+                drop_path_rate=0.2,
+                patch_norm=True,
+                use_checkpoint=True,
+                out_indices=out_indices,
+            )
+            embed_dim = 96
+            backbone.init_weights(args.pretrained_backbone_path)
+        elif backbone == "swin_large":
+            backbone = SwinTransformer(
+                embed_dim=192,
+                depths=[2, 2, 18, 2],
+                num_heads=[6, 12, 24, 48],
+                window_size=7,
+                ape=False,
+                drop_path_rate=0.2,
+                patch_norm=True,
+                use_checkpoint=True,
+                out_indices=out_indices,
+            )
+            embed_dim = 192
+            backbone.init_weights(args.pretrained_backbone_path)
+        elif backbone == "swin_large_window12":
+            backbone = SwinTransformer(
+                pretrain_img_size=384,
+                embed_dim=192,
+                depths=[2, 2, 18, 2],
+                num_heads=[6, 12, 24, 48],
+                window_size=12,
+                ape=False,
+                drop_path_rate=0.2,
+                patch_norm=True,
+                use_checkpoint=True,
+                out_indices=out_indices,
+            )
+            embed_dim = 192
+            backbone.init_weights(args.pretrained_backbone_path)
+        elif backbone == "swin_v2_tiny":
+            backbone = SwinTransformerV2(pretrain_img_size=256,
+                                  embed_dim=96,
+                                  depths=[ 2, 2, 6, 2 ],
+                                  num_heads=[ 3, 6, 12, 24 ],
+                                  window_size=8,
+                                  relative_coords_table_type='norm8_log',
+                                  drop_path_rate=0.2,
+                                  use_checkpoint=True,
+                                  out_indices=out_indices,
+                                  pretrain_window_size=[0, 0, 0, 0])
+            embed_dim = 96
+            backbone.init_weights(args.pretrained_backbone_path)
+        elif backbone == "swin_v2_tiny_window16":
+            backbone = SwinTransformerV2(pretrain_img_size=256,
+                                  embed_dim=96,
+                                  depths=[ 2, 2, 6, 2 ],
+                                  num_heads=[ 3, 6, 12, 24 ],
+                                  window_size=16,
+                                  relative_coords_table_type='norm8_log_bylayer',
+                                  drop_path_rate=0.2,
+                                  use_checkpoint=True,
+                                  out_indices=out_indices,
+                                  pretrain_window_size=[16, 16, 16, 8])
+            embed_dim = 96
+            backbone.init_weights(args.pretrained_backbone_path)
+        elif backbone == "swin_v2_tiny_window8to16":
+            backbone = SwinTransformerV2(pretrain_img_size=256,
+                                  embed_dim=96,
+                                  depths=[ 2, 2, 6, 2 ],
+                                  num_heads=[ 3, 6, 12, 24 ],
+                                  window_size=16,
+                                  relative_coords_table_type='norm8_log_bylayer',
+                                  drop_path_rate=0.2,
+                                  use_checkpoint=True,
+                                  out_indices=out_indices,
+                                  pretrain_window_size=[8, 8, 8, 8])
+            embed_dim = 96
+            backbone.init_weights(args.pretrained_backbone_path)
+        else:
+            raise NotImplementedError
+
+        for name, parameter in backbone.named_parameters():
+            # TODO: freeze some layers?
+            if not train_backbone:
+                parameter.requires_grad_(False)
+
+        if return_interm_layers:
+
+            self.strides = [8, 16, 32]
+            self.num_channels = [
+                embed_dim * 2,
+                embed_dim * 4,
+                embed_dim * 8,
+            ]
+        else:
+            self.strides = [32]
+            self.num_channels = [embed_dim * 8]
+
+        self.body = backbone
+
+    def forward(self, tensor_list: NestedTensor):
+        xs = self.body(tensor_list.tensors)
+
+        out: Dict[str, NestedTensor] = {}
+        for name, x in xs.items():
+            m = tensor_list.mask
+            assert m is not None
+            mask = F.interpolate(m[None].float(), size=x.shape[-2:]).to(torch.bool)[0]
+            out[name] = NestedTensor(x, mask)
+        return out
+
+
 class Joiner(nn.Sequential):
     def __init__(self, backbone, position_embedding):
         super().__init__(backbone, position_embedding)
@@ -137,6 +275,14 @@ def build_backbone(args):
     position_embedding = build_position_encoding(args)
     train_backbone = args.lr_backbone > 0
     return_interm_layers = args.masks or (args.num_feature_levels > 1)
-    backbone = Backbone(args.backbone, train_backbone, return_interm_layers, args.dilation)
+    # backbone = Backbone(args.backbone, train_backbone, return_interm_layers, args.dilation)
+    if "resnet" in args.backbone:
+        backbone = Backbone(
+            args.backbone, train_backbone, return_interm_layers, args.dilation,
+        )
+    else:
+        backbone = TransformerBackbone(
+            args.backbone, train_backbone, return_interm_layers, args
+        )
     model = Joiner(backbone, position_embedding)
     return model

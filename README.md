@@ -45,6 +45,66 @@ You can also refer to our
 
 [[model zoo in 百度网盘]](https://pan.baidu.com/s/13Dc_DgliVps4bHVlNujA4Q?pwd=niet)（提取码niet）.
 
+
+### Swin Transformer 50 epoch setting (weight decay = 0.05)
+<table>
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>backbone</th>
+      <th>box AP</th>
+      <th>increase</th>
+      <th>Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="configs/dn_dab_swintiny_wd05.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny</td>
+      <td>52.7</td>
+      <td>3.2</td>
+      <td><a href="https://drive.google.com/drive/folders/1jr8BdDdMu8esABXdU3lNY7fpWVxAJtWa?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1lWrLUkxNfrncRTM-zmpbeA?pwd=niet">BaiDu</a>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd05.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny-v2</td>
+      <td>53.5</td>
+      <td>4.0</td>
+      <td><a href="https://drive.google.com/drive/folders/1pIllR0VfSIqX8TmQy0PFNiPdp87j-78j?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1ugoXlpr3x72qcXPKQ669sA?pwd=niet">BaiDu</a>&nbsp</td>
+    </tr>
+  </tbody>
+</table>
+
+### Swin Transformer 50 epoch setting (weight decay = 0.0001)
+<table>
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>backbone</th>
+      <th>box AP</th>
+      <th>increase</th>
+      <th>Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="configs/dn_dab_swintiny_wd0001.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny</td>
+      <td>52.5</td>
+      <td>3.0</td>
+      <td><a href="https://drive.google.com/drive/folders/1kuwScU8PhN61qQOl5bbiPhKAYbzDHsWs?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1TqvnjsbAjARZp1i8cB2w8A?pwd=niet">BaiDu</a>&nbsp</td>
+    </tr>
+    <tr>
+      <td><a href="configs/dn_dab_swinv2tiny_win8to16_wd0001.sh">DN-DAB-Deformbale-DETR</a></td>
+      <td>Swin-Tiny-v2</td>
+      <td>53.1</td>
+      <td>3.6</td>
+      <td><a href="https://drive.google.com/drive/folders/1TLIuvMw6F9lBv77gWQ3Qcn5tdfG7kqdU?usp=sharing">Google Drive</a>&nbsp/&nbsp<a href="https://pan.baidu.com/s/1emOumSadTJbCcoqxhKnllQ?pwd=niet">BaiDu</a>&nbsp</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ### 50 epoch setting
 <table>
   <thead>
